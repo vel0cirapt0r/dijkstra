@@ -38,23 +38,23 @@ class Dijkstra:
 
 
 if __name__ == '__main__':
-    # dataset_folder_path = input('Enter path to graph files folder: ') or DATASET_PATH
-    # files_path = input('Enter name of graph files: ') or 'bay'
-    # folder_path = os.path.join(dataset_folder_path, files_path)
-    #
-    # parser = GraphParser()
-    # parsed_graph = parser.parse(folder_path)
-    # graph = parsed_graph['distance_edges']
-    #
-    # total_edges = sum(len(adjacent_vertices) for adjacent_vertices in graph.values())
-    # print('number of nodes: ', len(graph), ', number of edges: ', total_edges)
-    # print(graph)
+    dataset_folder_path = input('Enter path to graph files folder: ') or DATASET_PATH
+    files_path = input('Enter name of graph files: ') or 'bay'
+    folder_path = os.path.join(dataset_folder_path, files_path)
 
-    graph = generate_graph(321270, 794830)
+    parser = GraphParser()
+    parsed_graph = parser.parse(folder_path)
+    graph = parsed_graph['distance_edges']
+
+    total_edges = sum(len(adjacent_vertices) for adjacent_vertices in graph.values())
+    print('number of nodes: ', len(graph), ', number of edges: ', total_edges)
+    # print(type(graph))
+
+    # graph = generate_graph(321270, 794830)
     # print("generated graph: ", graph)
 
     source = int(input('Enter source vertex: ') or 1)
     dijkstra_instance = Dijkstra(graph)
     distances, previous_nodes = dijkstra_instance.dijkstra(source)
-    # print("Distances:", distances)
-    # print("Previous nodes:", previous_nodes)
+    print("Distances:", distances)
+    print("Previous nodes:", previous_nodes)
