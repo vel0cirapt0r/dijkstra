@@ -37,24 +37,55 @@ class Dijkstra:
         return self.distances, self.previous_nodes
 
 
+# if __name__ == '__main__':
+#     dataset_folder_path = input('Enter path to graph files folder: ') or DATASET_PATH
+#     files_path = input('Enter name of graph files: ') or 'bay'
+#     folder_path = os.path.join(dataset_folder_path, files_path)
+#
+#     parser = GraphParser()
+#     parsed_graph = parser.parse(folder_path)
+#     graph = parsed_graph['distance_edges']
+#
+#     total_edges = sum(len(adjacent_vertices) for adjacent_vertices in graph.values())
+#     print('number of nodes: ', len(graph), ', number of edges: ', total_edges)
+#     # print(type(graph))
+#
+#     # graph = generate_graph(321270, 794830)
+#     # print("generated graph: ", graph)
+#
+#     source = int(input('Enter source vertex: ') or 1)
+#     dijkstra_instance = Dijkstra(graph)
+#     distances, previous_nodes = dijkstra_instance.dijkstra(source)
+#     print("Distances:", distances)
+#     print("Previous nodes:", previous_nodes)
+
 if __name__ == '__main__':
-    dataset_folder_path = input('Enter path to graph files folder: ') or DATASET_PATH
-    files_path = input('Enter name of graph files: ') or 'bay'
-    folder_path = os.path.join(dataset_folder_path, files_path)
+    choice = input('Enter your choice:\n1. Create a new graph\n2. Use a prepared graph\nChoice: ')
 
-    parser = GraphParser()
-    parsed_graph = parser.parse(folder_path)
-    graph = parsed_graph['distance_edges']
+    if choice == '1':
+        num_nodes = int(input('Enter the number of nodes for the new graph: '))
+        num_edges = int(input('Enter the number of edges for the new graph: '))
+        graph = generate_graph(num_nodes, num_edges)
+        print(f"Generated graph with {num_nodes} nodes and {num_edges} edges.")
 
-    total_edges = sum(len(adjacent_vertices) for adjacent_vertices in graph.values())
-    print('number of nodes: ', len(graph), ', number of edges: ', total_edges)
-    # print(type(graph))
+    elif choice == '2':
+        dataset_folder_path = input('Enter path to graph files folder: ') or DATASET_PATH
+        files_path = input('Enter name of graph files: ') or 'bay'
+        folder_path = os.path.join(dataset_folder_path, files_path)
 
-    # graph = generate_graph(321270, 794830)
-    # print("generated graph: ", graph)
+        parser = GraphParser()
+        parsed_graph = parser.parse(folder_path)
+        graph = parsed_graph['distance_edges']
 
-    source = int(input('Enter source vertex: ') or 1)
-    dijkstra_instance = Dijkstra(graph)
-    distances, previous_nodes = dijkstra_instance.dijkstra(source)
-    print("Distances:", distances)
-    print("Previous nodes:", previous_nodes)
+        total_edges = sum(len(adjacent_vertices) for adjacent_vertices in graph.values())
+        print(f'Loaded graph with {len(graph)} nodes and {total_edges} edges from {folder_path}.')
+
+    else:
+        print('Invalid choice. Please enter 1 or 2.')
+
+    if choice in ['1', '2']:
+        source = int(input('Enter source vertex: ') or 1)
+        dijkstra_instance = Dijkstra(graph)
+        distances, previous_nodes = dijkstra_instance.dijkstra(source)
+        print("Distances:", distances)
+        print("Previous nodes:", previous_nodes)
